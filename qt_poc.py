@@ -1,13 +1,16 @@
 import sys
 from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import Qt
+
 from port_data_provider import PortDataProvider
+
 
 class TableModel(QtCore.QAbstractTableModel):
 
     def __init__(self, data):
         super(TableModel, self).__init__()
         self._data = data
+        self.header_labels = ['Ip', 'Port', 'Pid']
 
 
     def data(self, index, role):
@@ -19,6 +22,11 @@ class TableModel(QtCore.QAbstractTableModel):
 
     def columnCount(self, index):
         return len(self._data[0])
+
+    def headerData(self, section, orientation, role):
+        if role == QtCore.Qt.DisplayRole and orientation == QtCore.Qt.Horizontal:
+            return self.header_labels[section]
+    
 
 
 data_provider = PortDataProvider()
@@ -33,11 +41,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.table = QtWidgets.QTableView()
 
-        #data = [
-         #   [4, 9, 2],
-          #  [1, 0, 0],
-        #]
-
         data = list(
             map(map_2_array, data_provider.getAllActivePorts())
         )
@@ -45,9 +48,15 @@ class MainWindow(QtWidgets.QMainWindow):
         self.model = TableModel(data)
         self.table.setModel(self.model)
 
+        self.table.horizontalHeader().setStretchLastSection(True) 
+        self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+
         self.setCentralWidget(self.table)
+
 
 app = QtWidgets.QApplication(sys.argv)
 window = MainWindow()
+window.resize(400, 600)
+window.setWindowTitle('Port Poirot')
 window.show()
 app.exec_()
