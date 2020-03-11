@@ -17,3 +17,5 @@ class KillWidget(QWidget):
 	def _btn_kill_clicked(self):
 		for pid in self.port_table_view.selected_pids():
 			psutil.Process(pid).kill()
+
+		self.port_table_view.refresh_table()

@@ -6,6 +6,7 @@ class PortTableView(QTableView):
     def __init__(self, filter_proxy, data_provider):
         super().__init__()
         self.filter_proxy = filter_proxy
+        self.data_provider = data_provider
 
         model = PortTableModel(data_provider.getAllActivePorts())
         self.filter_proxy.setSourceModel(model)
@@ -17,6 +18,12 @@ class PortTableView(QTableView):
        	self.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
        	self.setSelectionBehavior(QAbstractItemView.SelectRows)
+
+    def refresh_table(self):
+    	model = PortTableModel(self.data_provider.getAllActivePorts())
+    	self.filter_proxy.setSourceModel(model)
+    	self.setModel(self.filter_proxy)
+
 
     def selected_pids(self):
 
