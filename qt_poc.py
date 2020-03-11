@@ -5,30 +5,7 @@ from PySide2.QtCore import Qt
 from port_data_provider import PortDataProvider
 
 from filter_widget import FilterWidget
-
-class SortFilterProxyModel(QtCore.QSortFilterProxyModel):
-
-    def __init__(self, *args, **kwargs):
-        QtCore.QSortFilterProxyModel.__init__(self, *args, **kwargs)
-        self.filters = {}
-
-    def setFilterByColumn(self, regex, column):
-        self.filters[column] = regex
-        self.invalidateFilter()
-
-    def clearFilters(self):
-        self.filters = {}
-        self.invalidateFilter()
-
-    def filterAcceptsRow(self, source_row, source_parent):
-        for key, regex in self.filters.items():
-            index = self.sourceModel().index(source_row, key, source_parent)
-            if index.isValid():
-                text = self.sourceModel().data(index, QtCore.Qt.DisplayRole)
-                if not regex in str(text):
-                    return False
-        return True
-
+from port_filter_proxy_model import PortFilterProxyModel
 
 class TableModel(QtCore.QAbstractTableModel):
 
@@ -59,7 +36,7 @@ data_provider = PortDataProvider()
 def map_2_array(line):
     return [line.ip, line.port, line.pid]
 
-proxy = SortFilterProxyModel()
+proxy = PortFilterProxyModel()
 
 class PortTableView(QtWidgets.QTableView):
     def __init__(self):
