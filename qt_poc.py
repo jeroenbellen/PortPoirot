@@ -16,6 +16,10 @@ class SortFilterProxyModel(QtCore.QSortFilterProxyModel):
         self.filters[column] = regex
         self.invalidateFilter()
 
+    def clearFilters(self):
+        self.filters = {}
+        self.invalidateFilter()
+
     def filterAcceptsRow(self, source_row, source_parent):
         for key, regex in self.filters.items():
             index = self.sourceModel().index(source_row, key, source_parent)
@@ -55,6 +59,8 @@ data_provider = PortDataProvider()
 def map_2_array(line):
     return [line.ip, line.port, line.pid]
 
+proxy = SortFilterProxyModel()
+
 class PortTableView(QtWidgets.QTableView):
     def __init__(self):
         super().__init__()
@@ -64,8 +70,6 @@ class PortTableView(QtWidgets.QTableView):
         )
 
         model = TableModel(data)
-        proxy = SortFilterProxyModel()
-        #proxy.setFilterByColumn("56382", 1)
         proxy.setSourceModel(model)
 
         
@@ -81,7 +85,7 @@ class MainWidget(QtWidgets.QWidget):
         super().__init__()
 
         layout = QtWidgets.QVBoxLayout()
-        layout.addWidget(FilterWidget())
+        layout.addWidget(FilterWidget(proxy))
         layout.addWidget(PortTableView())
 
         self.setLayout(layout)

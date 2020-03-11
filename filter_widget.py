@@ -2,8 +2,9 @@ from PySide2.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QHBoxLayo
 
 class FilterWidget(QWidget):
 
-    def __init__(self):
+    def __init__(self, filter_proxy):
         super().__init__()
+        self.filter_proxy = filter_proxy
 
         layout = QHBoxLayout()
 
@@ -25,7 +26,14 @@ class FilterWidget(QWidget):
 
         self.setLayout(layout)
 
+    def filter_on_index(self, edit, index):
+        text = edit.text().strip()
+
+        if text:
+            self.filter_proxy.setFilterByColumn(text, index)
+
     def btn_filter_clicked(self):
-        print(self.edit_ip.text())
-        print(self.edit_port.text())
-        print(self.edit_pid.text())
+        self.filter_proxy.clearFilters()
+        self.filter_on_index(self.edit_ip, 0)
+        self.filter_on_index(self.edit_port, 1)
+        self.filter_on_index(self.edit_pid, 2)
