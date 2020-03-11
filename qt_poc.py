@@ -53,35 +53,66 @@ data_provider = PortDataProvider()
 def map_2_array(line):
     return [line.ip, line.port, line.pid]
 
-class MainWindow(QtWidgets.QMainWindow):
-
+class PortTableView(QtWidgets.QTableView):
     def __init__(self):
         super().__init__()
-
-        self.table = QtWidgets.QTableView()
 
         data = list(
             map(map_2_array, data_provider.getAllActivePorts())
         )
 
-
-        self.model = TableModel(data)
+        model = TableModel(data)
         proxy = SortFilterProxyModel()
         #proxy.setFilterByColumn("56382", 1)
-        proxy.setSourceModel(self.model)
+        proxy.setSourceModel(model)
 
         
-        self.table.setModel(proxy)
+        super().setModel(proxy)
 
-        self.table.horizontalHeader().setStretchLastSection(True) 
-        self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        super().horizontalHeader().setStretchLastSection(True) 
+        super().horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
 
-        self.setCentralWidget(self.table)
+class FilterWidget(QtWidgets.QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        layout = QtWidgets.QHBoxLayout()
+        layout.addWidget(QtWidgets.QLabel("Ip"))
+        layout.addWidget(QtWidgets.QLineEdit(""))
+        layout.addWidget(QtWidgets.QLabel("Port"))
+        layout.addWidget(QtWidgets.QLineEdit(""))
+        layout.addWidget(QtWidgets.QLabel("Pid"))
+        layout.addWidget(QtWidgets.QLineEdit(""))
+        layout.addWidget(QtWidgets.QPushButton("Filter"))
+
+        self.setLayout(layout)
+
+
+
+class MainWidget(QtWidgets.QWidget):
+
+    def __init__(self):
+        super().__init__()
+
+        layout = QtWidgets.QVBoxLayout()
+        layout.addWidget(FilterWidget())
+        layout.addWidget(PortTableView())
+
+        self.setLayout(layout)
+
+
+class MainWindow(QtWidgets.QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+
+        self.setCentralWidget(MainWidget())
 
 
 app = QtWidgets.QApplication(sys.argv)
 window = MainWindow()
-window.resize(400, 600)
+window.resize(500, 600)
 window.setWindowTitle('Port Poirot')
 window.show()
 app.exec_()
