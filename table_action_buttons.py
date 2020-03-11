@@ -1,7 +1,7 @@
 import psutil
 from PySide2.QtWidgets import QWidget, QHBoxLayout, QPushButton
 
-class KillWidget(QWidget):
+class TableActionButtons(QWidget):
 
 	def __init__(self, port_table_view):
 		super().__init__()

@@ -2,7 +2,7 @@ from PySide2.QtWidgets import QWidget, QVBoxLayout
 from port_table_view import PortTableView    
 from filter_widget import FilterWidget
 from port_filter_proxy_model import PortFilterProxyModel
-from kill_widget import KillWidget
+from table_action_buttons import TableActionButtons
 
 class MainWidget(QWidget):
 
@@ -15,6 +15,6 @@ class MainWidget(QWidget):
 
         port_table_view = PortTableView(proxy, data_provider)
         layout.addWidget(port_table_view)
-        layout.addWidget(KillWidget(port_table_view))
+        layout.addWidget(TableActionButtons(port_table_view))
 
         self.setLayout(layout)
