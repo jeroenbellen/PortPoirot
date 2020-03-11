@@ -6,14 +6,14 @@ from kill_widget import KillWidget
 
 class MainWidget(QWidget):
 
-    def __init__(self, port_lines):
+    def __init__(self, data_provider):
         super().__init__()
         proxy = PortFilterProxyModel()
 
         layout = QVBoxLayout()
         layout.addWidget(FilterWidget(proxy))
 
-        port_table_view = PortTableView(proxy, port_lines)
+        port_table_view = PortTableView(proxy, data_provider)
         layout.addWidget(port_table_view)
         layout.addWidget(KillWidget(port_table_view))
 

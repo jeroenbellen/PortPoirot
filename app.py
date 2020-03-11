@@ -7,7 +7,7 @@ data_provider = PortDataProvider()
 
 app = QApplication(sys.argv)
 
-window = MainWindow(data_provider.getAllActivePorts())
+window = MainWindow(data_provider)
 
 window.resize(500, 600)
 window.setWindowTitle('Port Poirot')

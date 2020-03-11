@@ -3,11 +3,11 @@ from PySide2.QtCore import Qt
 from port_table_model import PortTableModel
 
 class PortTableView(QTableView):
-    def __init__(self, filter_proxy, port_lines):
+    def __init__(self, filter_proxy, data_provider):
         super().__init__()
         self.filter_proxy = filter_proxy
 
-        model = PortTableModel(port_lines)
+        model = PortTableModel(data_provider.getAllActivePorts())
         self.filter_proxy.setSourceModel(model)
 
         
