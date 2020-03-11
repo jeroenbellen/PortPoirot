@@ -16,6 +16,7 @@ class TableActionButtons(QWidget):
 		btn_refresh = QPushButton("Refresh table")
 		btn_refresh.clicked.connect(self._btn_refresh_clicked)
 		layout.addWidget(btn_refresh)
+		layout.addStretch()
 
 		self.setLayout(layout)
 

@@ -10,21 +10,29 @@ class FilterWidget(QWidget):
 
         layout.addWidget(QLabel("Ip"))
         self.edit_ip = QLineEdit("")
+        self._set_edit_width(self.edit_ip)
         layout.addWidget(self.edit_ip)
 
         layout.addWidget(QLabel("Port"))
         self.edit_port = QLineEdit("")
+        self._set_edit_width(self.edit_port)
         layout.addWidget(self.edit_port)
 
         layout.addWidget(QLabel("Pid"))
         self.edit_pid = QLineEdit("")
+        self._set_edit_width(self.edit_pid)
         layout.addWidget(self.edit_pid)
         
         btn_filter = QPushButton("Filter")
         btn_filter.clicked.connect(self.btn_filter_clicked)
         layout.addWidget(btn_filter)
 
+        layout.addStretch()
         self.setLayout(layout)
+
+    def _set_edit_width(self, edit):
+        edit.setMinimumWidth(100)
+        edit.setMaximumWidth(100)
 
     def filter_on_index(self, edit, index):
         text = edit.text().strip()
