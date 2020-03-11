@@ -4,6 +4,25 @@ from PySide2.QtCore import Qt
 
 from port_data_provider import PortDataProvider
 
+class SortFilterProxyModel(QtCore.QSortFilterProxyModel):
+
+    def __init__(self, *args, **kwargs):
+        QtCore.QSortFilterProxyModel.__init__(self, *args, **kwargs)
+        self.filters = {}
+
+    def setFilterByColumn(self, regex, column):
+        self.filters[column] = regex
+        self.invalidateFilter()
+
+    def filterAcceptsRow(self, source_row, source_parent):
+        for key, regex in self.filters.items():
+            index = self.sourceModel().index(source_row, key, source_parent)
+            if index.isValid():
+                text = self.sourceModel().data(index, QtCore.Qt.DisplayRole)
+                if not regex in str(text):
+                    return False
+        return True
+
 
 class TableModel(QtCore.QAbstractTableModel):
 
@@ -45,8 +64,14 @@ class MainWindow(QtWidgets.QMainWindow):
             map(map_2_array, data_provider.getAllActivePorts())
         )
 
+
         self.model = TableModel(data)
-        self.table.setModel(self.model)
+        proxy = SortFilterProxyModel()
+        #proxy.setFilterByColumn("56382", 1)
+        proxy.setSourceModel(self.model)
+
+        
+        self.table.setModel(proxy)
 
         self.table.horizontalHeader().setStretchLastSection(True) 
         self.table.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
