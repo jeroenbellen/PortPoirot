@@ -6,26 +6,12 @@ from port_data_provider import PortDataProvider
 
 from filter_widget import FilterWidget
 from port_filter_proxy_model import PortFilterProxyModel
-from port_table_model import PortTableModel
-    
+from port_table_view import PortTableView    
 
 
 data_provider = PortDataProvider()
 
 proxy = PortFilterProxyModel()
-
-class PortTableView(QtWidgets.QTableView):
-    def __init__(self):
-        super().__init__()
-
-        model = PortTableModel(data_provider.getAllActivePorts())
-        proxy.setSourceModel(model)
-
-        
-        super().setModel(proxy)
-
-        super().horizontalHeader().setStretchLastSection(True) 
-        super().horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
 
 
 class MainWidget(QtWidgets.QWidget):
@@ -35,7 +21,8 @@ class MainWidget(QtWidgets.QWidget):
 
         layout = QtWidgets.QVBoxLayout()
         layout.addWidget(FilterWidget(proxy))
-        layout.addWidget(PortTableView())
+
+        layout.addWidget(PortTableView(proxy, data_provider.getAllActivePorts()))
 
         self.setLayout(layout)
 
