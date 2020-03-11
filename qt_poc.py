@@ -4,6 +4,8 @@ from PySide2.QtCore import Qt
 
 from port_data_provider import PortDataProvider
 
+from filter_widget import FilterWidget
+
 class SortFilterProxyModel(QtCore.QSortFilterProxyModel):
 
     def __init__(self, *args, **kwargs):
@@ -71,23 +73,6 @@ class PortTableView(QtWidgets.QTableView):
 
         super().horizontalHeader().setStretchLastSection(True) 
         super().horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
-
-class FilterWidget(QtWidgets.QWidget):
-
-    def __init__(self):
-        super().__init__()
-
-        layout = QtWidgets.QHBoxLayout()
-        layout.addWidget(QtWidgets.QLabel("Ip"))
-        layout.addWidget(QtWidgets.QLineEdit(""))
-        layout.addWidget(QtWidgets.QLabel("Port"))
-        layout.addWidget(QtWidgets.QLineEdit(""))
-        layout.addWidget(QtWidgets.QLabel("Pid"))
-        layout.addWidget(QtWidgets.QLineEdit(""))
-        layout.addWidget(QtWidgets.QPushButton("Filter"))
-
-        self.setLayout(layout)
-
 
 
 class MainWidget(QtWidgets.QWidget):
