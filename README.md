@@ -1,5 +1,7 @@
 # Port Poirot
 
+![Python application](https://github.com/jeroenbellen/PortPoirot/workflows/Python%20application/badge.svg)
+
 Port Poirot displays a list of all ports that are in use. It provides filtering capabilities and a way to kill the process
 that is using a specific port.
 
