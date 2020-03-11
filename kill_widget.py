@@ -1,3 +1,4 @@
+import psutil
 from PySide2.QtWidgets import QWidget, QHBoxLayout, QPushButton
 
 class KillWidget(QWidget):
@@ -14,4 +15,5 @@ class KillWidget(QWidget):
 		self.setLayout(layout)
 
 	def _btn_kill_clicked(self):
-		print(self.port_table_view.selected_pids())
+		for pid in self.port_table_view.selected_pids():
+			psutil.Process(pid).kill()
