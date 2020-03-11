@@ -8,9 +8,14 @@ class TableActionButtons(QWidget):
 		self.port_table_view = port_table_view
 
 		layout = QHBoxLayout()
+
 		btn_kill = QPushButton("Kill selected rows")
 		btn_kill.clicked.connect(self._btn_kill_clicked)
 		layout.addWidget(btn_kill)
+
+		btn_refresh = QPushButton("Refresh table")
+		btn_refresh.clicked.connect(self._btn_refresh_clicked)
+		layout.addWidget(btn_refresh)
 
 		self.setLayout(layout)
 
@@ -18,4 +23,7 @@ class TableActionButtons(QWidget):
 		for pid in self.port_table_view.selected_pids():
 			psutil.Process(pid).kill()
 
+		self.port_table_view.refresh_table()
+
+	def _btn_refresh_clicked(self):
 		self.port_table_view.refresh_table()
