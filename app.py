@@ -1,5 +1,5 @@
 import sys 
-from elevate import elevate
+from elevate4app import elevate
 from PySide2.QtWidgets import QApplication
 from port_data_provider import PortDataProvider
 from main_window import MainWindow
