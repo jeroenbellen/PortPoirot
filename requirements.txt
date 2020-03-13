@@ -1,3 +1,0 @@
-PySide2==5.14.1
-psutil==5.7.0
-elevate==0.1.3

@@ -20,5 +20,5 @@ Currently pyinstaller doesn't work with python 3.8, fallback to python 3.7.
 Note that we cannot use the --onefile option, the elevate module doesn't like it.
 ```bash
 pip install pyinstaller
-python -m PyInstaller --icon detective.icns --noconfirm --clean --windowed app.py
+python -m PyInstaller --icon detective.icns --noconfirm --clean --windowed port_poirot.py
 ```

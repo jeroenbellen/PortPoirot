@@ -1,10 +1,14 @@
 import sys 
+import useless_process_killer
 from elevate import elevate
 from PySide2.QtWidgets import QApplication
 from port_data_provider import PortDataProvider
 from main_window import MainWindow
 
+useless_process_killer.check_and_kill()
+
 elevate()
+
 data_provider = PortDataProvider()
 
 app = QApplication(sys.argv)
