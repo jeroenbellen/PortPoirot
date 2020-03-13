@@ -14,3 +14,10 @@ pip3 install PySide2
 pip3 install psutil
 sudo python3 PortPoirot/app.py
 ```
+
+## Creating a mac app
+Currently pyinstaller doesn't work with python 3.8, fallback to python 3.7
+```bash
+pip install pyinstaller
+python -m PyInstaller --icon detective.icns --noconfirm --clean --windowed app.py
+```
