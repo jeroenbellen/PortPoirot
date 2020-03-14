@@ -6,13 +6,15 @@ Port Poirot displays a list of all ports that are in use. It provides filtering 
 that is using a specific port.
 
 Tested on macos running python 3.8, root access is required to run the program.
+Tested on ubuntu running python 3.7, root access is optional. To kill a process of another user you must become root.
 
 ## Installation from source
 ```bash
 git clone git@github.com:jeroenbellen/PortPoirot.git
 pip3 install PySide2
 pip3 install psutil
-sudo python3 PortPoirot/app.py
+pip3 install elevate
+sudo python3 PortPoirot/port_poirot.py
 ```
 
 ## Creating a mac app
