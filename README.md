@@ -25,3 +25,12 @@ Note that we cannot use the --onefile option, the elevate module doesn't like it
 pip install pyinstaller
 python -m PyInstaller --icon detective.icns --noconfirm --clean --windowed port_poirot.py
 ```
+Make sure to set the 'NSHighResolutionCapable' property too 'True' within the info.plist file.
+```
+<dict>
+    ....
+	<key>NSHighResolutionCapable</key>
+	<string>True</string>
+</dict>
+</plist>
+```
