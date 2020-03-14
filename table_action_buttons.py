@@ -1,5 +1,7 @@
 import psutil
+import os
 from PySide2.QtWidgets import QWidget, QHBoxLayout, QPushButton
+from elevate import elevate
 
 class TableActionButtons(QWidget):
 
@@ -16,8 +18,13 @@ class TableActionButtons(QWidget):
 		btn_refresh = QPushButton("Refresh table")
 		btn_refresh.clicked.connect(self._btn_refresh_clicked)
 		layout.addWidget(btn_refresh)
-		layout.addStretch()
+		
+		if psutil.LINUX and os.getuid() != 0:
+			btn_make_root = QPushButton("Run as root")
+			btn_make_root.clicked.connect(self._btn_make_root_clicked)
+			layout.addWidget(btn_make_root)
 
+		layout.addStretch()
 		self.setLayout(layout)
 
 	def _btn_kill_clicked(self):
@@ -32,3 +39,6 @@ class TableActionButtons(QWidget):
 
 	def _btn_refresh_clicked(self):
 		self.port_table_view.refresh_table()
+
+	def _btn_make_root_clicked(self):
+		elevate(graphical = False)
