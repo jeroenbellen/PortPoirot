@@ -23,7 +23,8 @@ class TableActionButtons(QWidget):
 	def _btn_kill_clicked(self):
 		for pid in self.port_table_view.selected_pids():
 			try:
-				psutil.Process(pid).kill()
+				if pid:
+					psutil.Process(pid).kill()
 			except psutil.NoSuchProcess:
 				pass
 

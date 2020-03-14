@@ -1,5 +1,6 @@
 import sys 
 import useless_process_killer
+import psutil
 from elevate import elevate
 from PySide2.QtWidgets import QApplication
 from port_data_provider import PortDataProvider
@@ -7,7 +8,8 @@ from main_window import MainWindow
 
 useless_process_killer.check_and_kill()
 
-elevate()
+if psutil.MACOS:
+    elevate()
 
 data_provider = PortDataProvider()
 
