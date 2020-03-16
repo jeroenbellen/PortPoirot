@@ -6,7 +6,7 @@ import os
 def check_and_kill():
 	if psutil.MACOS and os.getuid() == 0:
 		name = 'osascript'
-		search = '/Contents/MacOS/port_poirot" with administrator privileges without altering line endings'
+		search = '/Contents/MacOS/Port Poirot\\\'" with administrator privileges without altering line endings'
 		
 		for proc in psutil.process_iter():
 			if proc.name() == name and search in str(proc.cmdline()):

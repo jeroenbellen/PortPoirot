@@ -15,7 +15,7 @@ git clone git@github.com:jeroenbellen/PortPoirot.git
 pip3 install PySide2
 pip3 install psutil
 pip3 install elevate
-sudo python3 PortPoirot/port_poirot.py
+sudo python3 PortPoirot/__main__.py
 ```
 
 ## Creating a mac app
@@ -23,8 +23,9 @@ Currently pyinstaller doesn't work with python 3.8, fallback to python 3.7.
 Note that we cannot use the --onefile option, the elevate module doesn't like it.
 ```bash
 pip install pyinstaller
-python -m PyInstaller --icon detective.icns --noconfirm --clean --windowed port_poirot.py
+./build-macos.sh
 ```
+The build will be available in the dist folder.
 Make sure to set the 'NSHighResolutionCapable' property too 'True' within the info.plist file.
 ```
 <dict>

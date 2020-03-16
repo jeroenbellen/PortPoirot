@@ -6,20 +6,23 @@ from PySide2.QtWidgets import QApplication
 from port_data_provider import PortDataProvider
 from main_window import MainWindow
 
-useless_process_killer.check_and_kill()
+class PortPoirot():
 
-if psutil.MACOS:
-    elevate()
+	def __init__(self):
+		useless_process_killer.check_and_kill()
 
-data_provider = PortDataProvider()
+		if psutil.MACOS:
+			elevate()
 
-app = QApplication(sys.argv)
+		data_provider = PortDataProvider()
 
-window = MainWindow(data_provider)
+		app = QApplication(sys.argv)
 
-window.resize(500, 600)
-window.setWindowTitle('Port Poirot')
+		window = MainWindow(data_provider)
 
-window.show()
+		window.resize(500, 600)
+		window.setWindowTitle('Port Poirot')
 
-app.exec_()
+		window.show()
+
+		app.exec_()
