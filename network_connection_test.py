@@ -9,4 +9,4 @@ class NetworkConnectionTest(unittest.TestCase):
 		assert nc.ip == "ip"
 		assert nc.port == 8080
 		assert nc.pid == 432
-		assert nc.process_name = "process name"
+		assert nc.process_name == "process name"
