@@ -5,7 +5,7 @@ class PortTableModel(QAbstractTableModel):
     def __init__(self, port_lines):
         super(PortTableModel, self).__init__()
         self._data = self._map_data(port_lines)
-        self.header_labels = ['Ip', 'Port', 'Pid']
+        self.header_labels = ['Ip', 'Port', 'Pid', 'Process Name']
 
 
     def data(self, index, role):
@@ -28,4 +28,4 @@ class PortTableModel(QAbstractTableModel):
         )
 
     def _map_2_array(self, line):
-        return [line.ip, line.port, line.pid]
+        return [line.ip, line.port, line.pid, line.process_name]

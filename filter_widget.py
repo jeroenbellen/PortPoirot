@@ -22,6 +22,11 @@ class FilterWidget(QWidget):
         self.edit_pid = QLineEdit("")
         self._set_edit_width(self.edit_pid)
         layout.addWidget(self.edit_pid)
+
+        layout.addWidget(QLabel("Process name"))
+        self.edit_process_name = QLineEdit("")
+        self._set_edit_width(self.edit_process_name)
+        layout.addWidget(self.edit_process_name)
         
         btn_filter = QPushButton("Filter")
         btn_filter.clicked.connect(self.btn_filter_clicked)
@@ -45,3 +50,4 @@ class FilterWidget(QWidget):
         self.filter_on_index(self.edit_ip, 0)
         self.filter_on_index(self.edit_port, 1)
         self.filter_on_index(self.edit_pid, 2)
+        self.filter_on_index(self.edit_process_name, 3)
